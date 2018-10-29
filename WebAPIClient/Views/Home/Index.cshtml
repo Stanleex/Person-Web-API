@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Person>
+@{
+    Layout = null;
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Web API Result</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        @foreach(var P in Model)
+        { 
+            <tr>
+                <td>@P.Id</td>
+                <td>@P.FirstName</td>
+                <td>@P.LastName</td>
+            </tr>
+        }
+    </table>
+    <a asp-controller="Home" asp-action="CreateNewPerson">Create new person</a>
+
+</body>
+</html>
