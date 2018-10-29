@@ -11,7 +11,7 @@ namespace FirstWebAPI.Controllers
     public class PersonController : ApiController
     {
         //PersonContext _context = new PersonContext();
-
+        EFPersonRepository db = new EFPersonRepository();
         public PersonController()
         {
         }
@@ -19,39 +19,33 @@ namespace FirstWebAPI.Controllers
         // GET: api/Person
         public List<Person> GetAllPersons()
         {
-            return FakeRepository.FPeople.OrderBy(p => p.Id).ToList();
+            return db.Persons.ToList();
         }
 
         // GET: api/Person/5
         public Person GetPersonById(int id)
         {
-            return FakeRepository.FPeople.Where(p => p.Id == id).FirstOrDefault();
+            return db.Persons.Where(p => p.Id == id).FirstOrDefault();
         }
 
         // POST: api/Person
         [HttpPost]
         public void CreateNewPerson(Person newPerson)
         {
-
-            FakeRepository.FPeople.Add(newPerson);
-
+            db.AddPerson(newPerson);
         }
 
         // PUT: api/Person/5
         [HttpPut]
         public void UpdatePersonInfo(int id, Person newPerson)
         {
-            var person = FakeRepository.FPeople.FindIndex(p => p.Id == id);
-            FakeRepository.FPeople[person].FirstName = newPerson.FirstName;
-            FakeRepository.FPeople[person].LastName = newPerson.LastName;
-
+            db.UpdatePerson(id, newPerson);
         }
 
         // DELETE: api/Person/5
         public void DeletePerson(int id)
         {
-            var person = FakeRepository.FPeople.Where(p => p.Id == id).FirstOrDefault();
-            FakeRepository.FPeople.Remove(person);
+            db.RemovePerson(id);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FirstWebAPI.Models
 {
-    public class PersonContext : DbContext
+    public class EFDbContext : DbContext
     {
         public DbSet<Person> Persons { get; set; }
     }

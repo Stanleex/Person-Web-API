@@ -48,11 +48,11 @@ namespace WebAPIClient.WebAPIMethods
                 return JsonConvert.DeserializeObject<Person>(json);
             }
         }
-        public async Task CrateNewPerson(int id, string firstName, string lastName)
+        public async Task CrateNewPerson(string firstName, string lastName)
         {
             using (var client = new HttpClient())
             {
-                var json = JsonConvert.SerializeObject(new Person() { Id = id, FirstName = firstName, LastName = lastName });
+                var json = JsonConvert.SerializeObject(new Person() {FirstName = firstName, LastName = lastName });
                 var stringContent = new StringContent(json, System.Text.UnicodeEncoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(_url, stringContent);
