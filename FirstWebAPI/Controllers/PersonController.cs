@@ -10,9 +10,7 @@ namespace FirstWebAPI.Controllers
 {
     public class PersonController : ApiController
     {
-        PersonContext _context = new PersonContext();
-
-
+        //PersonContext _context = new PersonContext();
 
         public PersonController()
         {
@@ -21,38 +19,39 @@ namespace FirstWebAPI.Controllers
         // GET: api/Person
         public List<Person> GetAllPersons()
         {
-            return _context.Persons.ToList();
+            return FakeRepository.FPeople.OrderBy(p => p.Id).ToList();
         }
 
         // GET: api/Person/5
         public Person GetPersonById(int id)
         {
-            return _context.Persons.Where(p => p.Id == id).FirstOrDefault();
+            return FakeRepository.FPeople.Where(p => p.Id == id).FirstOrDefault();
         }
 
         // POST: api/Person
         [HttpPost]
         public void CreateNewPerson(Person newPerson)
         {
-            _context.Persons.Add(newPerson);
+
+            FakeRepository.FPeople.Add(newPerson);
 
         }
 
         // PUT: api/Person/5
         [HttpPut]
-        public void UpdatePersonInfo(int id, string firstName, string lastName)
+        public void UpdatePersonInfo(int id, Person newPerson)
         {
-            var person = _context.Persons.Where(p => p.Id == id).FirstOrDefault();
-            person.FirstName = firstName;
-            person.LastName = lastName;
-            _context.SaveChanges();
+            var person = FakeRepository.FPeople.FindIndex(p => p.Id == id);
+            FakeRepository.FPeople[person].FirstName = newPerson.FirstName;
+            FakeRepository.FPeople[person].LastName = newPerson.LastName;
+
         }
 
         // DELETE: api/Person/5
         public void DeletePerson(int id)
         {
-            var person = _context.Persons.Where(p => p.Id == id).FirstOrDefault();
-            _context.Persons.Remove(person);
+            var person = FakeRepository.FPeople.Where(p => p.Id == id).FirstOrDefault();
+            FakeRepository.FPeople.Remove(person);
         }
     }
 }

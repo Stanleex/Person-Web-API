@@ -6,23 +6,66 @@
 <head>
     <title>Web API Result</title>
 </head>
-<body>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-        </tr>
-        @foreach(var P in Model)
-        { 
+    <body>
+        <table>
             <tr>
-                <td>@P.Id</td>
-                <td>@P.FirstName</td>
-                <td>@P.LastName</td>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
             </tr>
-        }
-    </table>
-    <a asp-controller="Home" asp-action="CreateNewPerson">Create new person</a>
+            @foreach (var P in Model)
+            {
+                <tr>
+                    <td>@P.Id</td>
+                    <td>@P.FirstName</td>
+                    <td>@P.LastName</td>
+                </tr>
+            }
+        </table>
+        <form asp-controller="Home" asp-action="CreateNewPerson" method="post">
+            <div>
+                <label>ID</label>
+                <input type="text" name="id" />
+            </div>
+            <div>
+                <label>FirstName</label>
+                <input type="text" name="firstName" />
+            </div>
+            <div>
+                <label>LastName</label>
+                <input type="text" name="lastName" />
+            </div>
+            <button type="submit">Create new person</button>
+        </form>
+        <form asp-controller="Home" asp-action="GetPersonById" method="post">
+            <div>
+                <label>ID</label>
+                <input type="text" name="id" />
+            </div>
+            <button type="submit">Get person by id</button>
+        </form>        
+        <form asp-controller="Home" asp-action="UpdatePerson" method="post">
+            <div>
+                <label>ID</label>
+                <input type="text" name="id" />
+            </div>
+            <div>
+                <label>FirstName</label>
+                <input type="text" name="firstName" />
+            </div>
+            <div>
+                <label>LastName</label>
+                <input type="text" name="lastName" />
+            </div>
+            <button type="submit">Update person</button>
+        </form>        
+        <form asp-controller="Home" asp-action="DeletePerson" method="post">
+            <div>
+                <label>ID</label>
+                <input type="text" name="id" />
+            </div>
+            <button type="submit">Delete person</button>
+        </form>
 
-</body>
+    </body>
 </html>

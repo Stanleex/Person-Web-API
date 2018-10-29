@@ -23,13 +23,31 @@ namespace WebAPIClient.Controllers
         public async Task<ActionResult> Index()
         {
             var WebAPIResult = await _WebAPI.Get();
+            
             return View(WebAPIResult);
         }
 
-        public async Task<ActionResult> CreateNewPerson()
+        public async Task<ActionResult> GetPersonById(int id)
         {
-            await _WebAPI.CrateNewPerson();
+            var WebAPIResult = await _WebAPI.GetPersonById(id);
+            return View("SinglePersonView", WebAPIResult);
+        }
+
+        public async Task<ActionResult> CreateNewPerson(int id, string firstName, string lastName)
+        {
+            await _WebAPI.CrateNewPerson(id, firstName, lastName);
             return RedirectToAction("Index");
         }
+        public async Task<ActionResult> UpdatePerson(int id, string firstName, string lastName)
+        {
+            await _WebAPI.UpdatePersonData(id, firstName, lastName);
+            return RedirectToAction("Index");
+        }
+        public async Task<ActionResult> DeletePerson(int id)
+        {
+            await _WebAPI.DeletePerson(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }
