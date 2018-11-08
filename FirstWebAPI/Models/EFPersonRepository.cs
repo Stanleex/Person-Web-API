@@ -12,21 +12,35 @@ namespace FirstWebAPI.Models
         public IEnumerable<Person> Persons => _context.Persons;
         public void AddPerson(Person newPerson)
         {
-            _context.Persons.Add(newPerson);
-            _context.SaveChanges();
+            if (newPerson != null)
+            {
+                _context.Persons.Add(newPerson);
+                _context.SaveChanges();
+            }
+     
         }
+
         public void RemovePerson(int id)
         {
             var person = _context.Persons.Where(p => p.Id == id).FirstOrDefault();
-            _context.Persons.Remove(person);
-            _context.SaveChanges();
+            if (person != null)
+            {
+                _context.Persons.Remove(person);
+                _context.SaveChanges();
+            }
+
         }
         public void UpdatePerson(int id, Person newPerson)
         {
+            
             var person = _context.Persons.Where(p => p.Id == id).FirstOrDefault();
-            person.FirstName = newPerson.FirstName;
-            person.LastName = newPerson.LastName;
-            _context.SaveChanges();
+            if (person != null)
+            {
+                person.FirstName = newPerson.FirstName;
+                person.LastName = newPerson.LastName;
+                _context.SaveChanges();
+            }
+
         }
         public void SaveDatabase()
         {

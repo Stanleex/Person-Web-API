@@ -12,7 +12,6 @@ namespace WebAPIClient.Controllers
 {
     public class HomeController : Controller
     {
-        private List<Person> _persons;
         private WebAPIConnection _WebAPI;
 
         public HomeController()
@@ -33,9 +32,9 @@ namespace WebAPIClient.Controllers
             return View("SinglePersonView", WebAPIResult);
         }
 
-        public async Task<ActionResult> CreateNewPerson(int id, string firstName, string lastName)
+        public async Task<ActionResult> CreateNewPerson(string firstName, string lastName)
         {
-            await _WebAPI.CrateNewPerson(id, firstName, lastName);
+            await _WebAPI.CrateNewPerson(firstName, lastName);
             return RedirectToAction("Index");
         }
         public async Task<ActionResult> UpdatePerson(int id, string firstName, string lastName)
